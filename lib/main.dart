@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_midi/flutter_midi.dart';
-import 'package:tonic/tonic.dart';
-
+import 'package:tonic/tonic.dart';//adding midi
 
 
 void main() => runApp(MyApp());
@@ -18,14 +17,14 @@ class _MyAppState extends State<MyApp> {
 // If you are running this on the iOS Simulator you will get an error
 //It's ok for developing the UI but once we start with the midi you will need to plug in a real ios device.
   
- /* @override
+  @override
   void initState() {
     FlutterMidi.unmute();
     rootBundle.load("assets/sounds/Piano.sf2").then((sf2) {
       FlutterMidi.prepare(sf2: sf2, name: "Piano.sf2");
     });
     super.initState();
-  }*/
+  }
 
 // build the octave section that will be repeated.
 // Since every octave is identical we can repeat the octaves with minor adjustments.
@@ -84,7 +83,7 @@ class _MyAppState extends State<MyApp> {
                   ],),
                 );
 
-                return Container();
+               // return Container();
               },
         )
 
@@ -93,8 +92,36 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-//build key function
+//build white keys function
    Widget _buildKey(int midi, bool accidental) {
+
+     final pitchName = Pitch.fromMidiNumber(midi).toString();
+     final pianoKey = Stack(
+                      children: <Widget>[
+                      Semantics(
+                        button: true,
+                        hint: pitchName,
+                        child: Material(
+                          borderRadius: borderRadius,
+                          color: accidental ? Colors.black : Colors.white,
+                          child: InkWell(
+                              highlightColor: Colors.grey,
+                              onTap: (){},
+                              onTapDown: (_) => FlutterMidi.playMidiNote(midi: midi),
+                          ))),
+                          Positioned(
+                              left: 0.0,
+                              right: 0.0,
+                              bottom: 20.0,
+                              child: _showLabels
+                               ? Text(pitchName,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                              color: !accidental ? Colors.black : Colors.white))
+                              : Container()),
+                      ]);
+
+
           if (accidental){
           return Container(
               width: keyWidth,
@@ -105,12 +132,13 @@ class _MyAppState extends State<MyApp> {
             elevation: 6.0,
             borderRadius: borderRadius,
             shadowColor: Color(0x802196F3),
-          ));
+            child: pianoKey));
           }
 
           return Container(
             width: keyWidth,
-            color: Colors.white,
+            child: pianoKey,
+            //color: Colors.white,
             margin: EdgeInsets.symmetric(horizontal: 2.0)
           );
         }
