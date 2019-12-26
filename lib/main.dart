@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
       home: Scaffold(
-        appBar: AppBar(title: Text("Piano 4 Your Brain")),
+        appBar: AppBar(title: Text("4 Mateo Scarlett & Raquel")),
         drawer: Drawer(child: SafeArea( child: ListView(children: <Widget>[]))),
         body: ListView.builder(
               itemCount: 7,
