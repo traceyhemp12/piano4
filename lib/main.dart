@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
       home: Scaffold(
-        appBar: AppBar(title: Text("4 Mateo Scarlett & Raquel")),
+        appBar: AppBar(title: Text("Piano 4 Mateo Scarlett & Raquel")),
         drawer: Drawer(child: SafeArea( child: ListView(children: <Widget>[]))),
         body: ListView.builder(
               itemCount: 7,
@@ -123,22 +123,24 @@ class _MyAppState extends State<MyApp> {
 
 
           if (accidental){
+            //black keys radius corners
           return Container(
               width: keyWidth,
-              color: Colors.black,
+              color: Colors.white,
               margin: EdgeInsets.symmetric(horizontal: 2.0),
-              padding: EdgeInsets.symmetric(horizontal: keyWidth * .1),
+              padding: EdgeInsets.symmetric(horizontal: keyWidth * .0009),
             child: Material(
-            elevation: 6.0,
+            //black key shadow
+            elevation: 5.0,
             borderRadius: borderRadius,
             shadowColor: Color(0x802196F3),
             child: pianoKey));
           }
-
+          //white keys radius corners
           return Container(
             width: keyWidth,
             child: pianoKey,
-            //color: Colors.white,
+            color: Colors.black,
             margin: EdgeInsets.symmetric(horizontal: 2.0)
           );
         }
